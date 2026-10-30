@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>12 Eixos: Mulheres na Política</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -5,20 +10,14 @@
 <style>
 /* Layout: coluna central estreita no padrão dos testes da família 8values — pergunta grande, respostas empilhadas, resultado em barras bicolores agrupadas em 4 categorias */
 :root{
-  --bg:#f4f2f6; --surface:#ffffff; --ink:#1e1a24; --muted:#6a6374; --line:#e0dbe6;
-  --accent:#5a3c8a; --accent-soft:#ece5f6; --ok:#2d6a4c; --ok-soft:#e1efe7;
-  /* cores dos polos (iguais nos dois temas; texto branco sobre elas) */
+  --bg:#000000; --surface:#121015; --ink:#efeaf4; --muted:#a59db0; --line:#2c2733;
+  --accent:#b39ae0; --accent-soft:#2a2238; --ok:#7cc4a0; --ok-soft:#16261e; color-scheme:dark;
+  /* cores dos polos (texto branco sobre elas) */
   --g1:#33557a; --g2:#b5603f; --i1:#2a7362; --i2:#9c4573; --e1:#b23a3a; --e2:#2f5fa8; --s1:#5f478c; --s2:#a8801f;
   --display:"Young Serif", Georgia, "Times New Roman", serif;
   --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#16131b; --surface:#211d28; --ink:#ece8f1; --muted:#a59db0; --line:#36303f;
-  --accent:#b39ae0; --accent-soft:#2e2540; --ok:#7cc4a0; --ok-soft:#1d3329; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#16131b; --surface:#211d28; --ink:#ece8f1; --muted:#a59db0; --line:#36303f;
-  --accent:#b39ae0; --accent-soft:#2e2540; --ok:#7cc4a0; --ok-soft:#1d3329; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
@@ -605,3 +604,5 @@ const creds=P.filter(p=>foto(p[0])&&FOTOS_SITE[p[0]].credito).map(p=>`${p[0]}: $
 $("credlist").textContent=creds.length?"Créditos: "+creds.join("; ")+".":"";
 renderQ();
 </script>
+
+</html>
