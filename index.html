@@ -1,0 +1,607 @@
+<title>12 Eixos: Mulheres na Política</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: coluna central estreita no padrão dos testes da família 8values — pergunta grande, respostas empilhadas, resultado em barras bicolores agrupadas em 4 categorias */
+:root{
+  --bg:#f4f2f6; --surface:#ffffff; --ink:#1e1a24; --muted:#6a6374; --line:#e0dbe6;
+  --accent:#5a3c8a; --accent-soft:#ece5f6; --ok:#2d6a4c; --ok-soft:#e1efe7;
+  /* cores dos polos (iguais nos dois temas; texto branco sobre elas) */
+  --g1:#33557a; --g2:#b5603f; --i1:#2a7362; --i2:#9c4573; --e1:#b23a3a; --e2:#2f5fa8; --s1:#5f478c; --s2:#a8801f;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#16131b; --surface:#211d28; --ink:#ece8f1; --muted:#a59db0; --line:#36303f;
+  --accent:#b39ae0; --accent-soft:#2e2540; --ok:#7cc4a0; --ok-soft:#1d3329; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16131b; --surface:#211d28; --ink:#ece8f1; --muted:#a59db0; --line:#36303f;
+  --accent:#b39ae0; --accent-soft:#2e2540; --ok:#7cc4a0; --ok-soft:#1d3329; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-direction:column;gap:8px;text-align:center;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ok)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.08;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;font-size:24px;margin:0;text-wrap:balance}
+h3{font-size:15px;margin:0;font-weight:700}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+.note{font-size:13px;color:var(--muted);margin:0}
+nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;border-bottom:1px solid var(--line)}
+nav button{font:inherit;font-weight:600;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:10px 12px;cursor:pointer;margin-bottom:-1px}
+nav button[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:inherit;font-weight:600;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:var(--bg);padding:10px 20px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.35;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+/* quiz */
+.qwrap{display:flex;flex-direction:column;gap:14px;align-items:stretch}
+.progress{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.qmeta{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.kind{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ok);text-align:center}
+.qtext{font-family:var(--display);font-size:clamp(21px,3.2vw,27px);line-height:1.28;margin:0 auto;text-wrap:balance;max-width:34ch;text-align:center}
+.pairbox{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pairbox div{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);font-size:15px;min-width:0}
+.pairbox b{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:4px}
+@media (max-width:560px){.pairbox{grid-template-columns:1fr}}
+.opts{display:flex;flex-direction:column;gap:8px;max-width:560px;width:100%;margin:0 auto}
+.opts button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:13px 16px;cursor:pointer;color:#fff;text-align:center;line-height:1.35;transition:filter .15s,transform .15s}
+.opts button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.opts button.on{outline:3px solid var(--ink);outline-offset:2px}
+.opts .dk{background:transparent;color:var(--muted);border:1px dashed var(--line);font-weight:500}
+.qnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+/* results */
+.cat{display:flex;flex-direction:column;gap:14px}
+.cat-title{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:6px}
+.ax{display:flex;flex-direction:column;gap:5px}
+.ax-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px}
+.ax-head .nm{font-weight:700;text-align:center;flex:1}
+.ax-head .pl{color:var(--muted);flex:1;min-width:0}
+.ax-head .pl.r{text-align:right}
+.bar{display:flex;height:30px;border-radius:8px;overflow:hidden;font-family:var(--mono);font-size:12.5px;font-weight:500;color:#fff;position:relative}
+.bar span{display:flex;align-items:center;padding:0 8px;white-space:nowrap;overflow:hidden;min-width:0}
+.bar span:last-child{justify-content:flex-end}
+.her{position:absolute;top:-3px;bottom:-3px;width:4px;background:var(--ink);border-radius:3px;transform:translateX(-50%);box-shadow:0 0 0 2px var(--surface)}
+.ax-foot{font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.legend{display:flex;gap:16px;font-size:12.5px;color:var(--muted);flex-wrap:wrap;align-items:center}
+.legend i{display:inline-block;width:4px;height:14px;background:var(--ink);border-radius:2px;margin-right:6px;vertical-align:-2px}
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.rank li{display:grid;grid-template-columns:24px 36px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
+.rank li:hover,.rank li.sel{background:var(--ok-soft)}
+.rank .n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.rank .who{min-width:0}
+.rank .who b{display:block;font-weight:600;overflow-wrap:anywhere}
+.rank .who small{color:var(--muted);font-size:12px}
+.rank .pct{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500;color:var(--ok)}
+.top{display:flex;flex-direction:column;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:6px}
+.top .pct-big{font-family:var(--display);font-size:40px;line-height:1;color:var(--ok)}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{font:inherit;font-size:13px;font-weight:600;border:0;background:none;color:var(--muted);padding:6px 12px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
+/* sliders */
+.sliders{display:flex;flex-direction:column;gap:16px}
+.sl{display:flex;flex-direction:column;gap:4px}
+.sl input{width:100%;accent-color:var(--accent)}
+.sl .val{font-family:var(--mono);font-size:12px;color:var(--accent);text-align:center}
+/* list */
+.filters{display:flex;gap:10px;flex-wrap:wrap}
+.filters input,.filters select{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);min-width:0}
+.filters input{flex:1 1 220px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px}
+.card{font:inherit;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink);display:flex;flex-direction:column;gap:2px;min-width:0}
+.card:hover,.card.sel{border-color:var(--ok)}
+.card small{color:var(--muted);font-size:12px}
+details.method{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+details.method summary{cursor:pointer;font-weight:700}
+details.method ul{padding-left:18px;margin:10px 0 0;display:flex;flex-direction:column;gap:8px;max-width:72ch}
+details.method a{color:var(--accent)}
+.av{border-radius:50%;object-fit:cover;flex:none;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:var(--body);letter-spacing:.02em}
+.topcard{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.topinfo{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 220px}
+.topname{font-family:var(--display);font-weight:400;font-size:24px}
+.bio{margin:10px 0 0;max-width:62ch}
+.why{margin:10px 0 0;max-width:66ch;background:var(--ok-soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.why-h{margin:0;font-weight:700;font-size:13.5px}
+.why-l{margin:0 0 4px;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.why-l li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;align-items:baseline}
+.why-ax{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ok)}
+@media (max-width:480px){.why-l li{grid-template-columns:1fr;gap:0}}
+.cred{font-size:11.5px;color:var(--muted)}
+.upl{font-size:13px;font-weight:600;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkbtn{font:inherit;font-size:13px;background:none;border:0;color:var(--muted);cursor:pointer;text-decoration:underline;padding:0}
+.card .av{margin-bottom:6px}
+@media (prefers-reduced-motion:reduce){.progress i,.opts button{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Teste político · 12 eixos · só mulheres</span>
+    <h1>Com quais mulheres da política você mais se parece?</h1>
+    <p class="lead">48 perguntas sobre situações concretas, em 12 eixos. No fim, seu resultado é comparado com <b id="count"></b> mulheres da política brasileira e internacional.</p>
+  </header>
+
+  <nav role="tablist">
+    <button role="tab" id="t-quiz" aria-selected="true" data-v="quiz">Teste</button>
+    <button role="tab" id="t-manual" aria-selected="false" data-v="manual">Já fiz o 12axes</button>
+    <button role="tab" id="t-list" aria-selected="false" data-v="list">Personalidades</button>
+  </nav>
+
+  <section id="v-quiz" class="panel qwrap">
+    <div class="progress"><i id="bar" style="width:0%"></i></div>
+    <div class="qmeta"><span id="qnum"></span><span id="qaxis"></span></div>
+    <span class="kind" id="qkind"></span>
+    <p class="qtext" id="qtext"></p>
+    <div class="pairbox" id="pairbox" hidden></div>
+    <div class="opts" id="opts"></div>
+    <div class="qnav">
+      <button class="btn ghost" id="back">Voltar</button>
+      <button class="btn ghost" id="skip">Ver resultado agora</button>
+    </div>
+  </section>
+
+  <section id="v-manual" class="panel" hidden style="flex-direction:column;gap:18px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <h2>Seu resultado do 12axes</h2>
+      <p class="note">Arraste cada controle até onde o seu resultado ficou no eixo correspondente do 12axes. O lado esquerdo é o primeiro polo, o direito é o segundo.</p>
+    </div>
+    <div class="sliders" id="sliders"></div>
+    <div class="row"><button class="btn" id="compare">Comparar com as políticas</button><button class="btn ghost" id="reset">Voltar tudo ao centro</button></div>
+  </section>
+
+  <section id="v-result" hidden style="flex-direction:column;gap:18px">
+    <div class="panel" style="display:flex;flex-direction:column;gap:22px">
+      <div class="row" style="justify-content:space-between">
+        <h2>Seus 12 eixos</h2>
+        <div class="legend"><span><i></i><span id="herlabel"></span></span></div>
+      </div>
+      <div id="resAxes" style="display:flex;flex-direction:column;gap:26px"></div>
+    </div>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <h2>Mais parecidas com você</h2>
+        <div class="seg" role="group" aria-label="Filtrar ranking">
+          <button aria-pressed="true" data-r="all">Todas</button><button aria-pressed="false" data-r="br">Brasil</button><button aria-pressed="false" data-r="int">Internacional</button>
+        </div>
+      </div>
+      <div class="top" id="topBox"></div>
+      <ol class="rank" id="rank"></ol>
+      <div class="row" style="margin-top:12px"><button class="btn ghost" id="seeAll">Ver ranking completo</button><button class="btn ghost" id="redo">Refazer o teste</button></div>
+    </div>
+  </section>
+
+  <section id="v-list" hidden style="flex-direction:column;gap:16px">
+    <div class="filters">
+      <input id="q" type="search" placeholder="Buscar por nome, país ou partido">
+      <select id="region"><option value="all">Todas</option><option value="br">Brasil</option><option value="int">Internacional</option></select>
+    </div>
+    <div class="panel" id="detail" style="display:flex;flex-direction:column;gap:18px"></div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <details class="method">
+    <summary>Como este teste foi feito</summary>
+    <ul>
+      <li><b>Sem concordo/discordo.</b> Escalas de concordância têm qualidade bem menor que perguntas cujas respostas nomeiam as posições possíveis, principalmente por causa da tendência a concordar com qualquer afirmação (<a href="https://ojs.ub.uni-konstanz.de/srm/article/view/2682" target="_blank" rel="noopener">Saris, Revilla, Krosnick &amp; Shaeffer, 2010</a>). Por isso cada pergunta tem respostas próprias.</li>
+      <li><b>Escolha entre duas afirmações.</b> Parte das perguntas opõe duas posições e pede a que chega mais perto do que você pensa, como na tipologia política do <a href="https://pewresearch.org/short-reads/2014/06/27/why-the-typology-quiz-questions-are-asked-the-way-they-are" target="_blank" rel="noopener">Pew Research Center</a>. Isso obriga a pesar uma coisa contra a outra.</li>
+      <li><b>"Não sei" separado do meio.</b> Muita gente que marca o ponto neutro na verdade não tem opinião formada (<a href="https://ideas.repec.org/a/sae/somere/v43y2014i1p15-38.html" target="_blank" rel="noopener">Sturgis, Roberts &amp; Smith, 2014</a>). Aqui "não sei" fica fora do cálculo, e o resultado mostra quantas respostas cada eixo teve.</li>
+      <li><b>Quatro perguntas por eixo.</b> A média de várias perguntas sobre o mesmo tema reduz o erro de medida e revela opiniões mais estáveis do que uma pergunta só (<a href="https://www.cambridge.org/core/journals/american-political-science-review/article/strength-of-issues-using-multiple-measures-to-gauge-preference-stability-ideological-constraint-and-issue-voting/16F6AF97F7B71AA0112EC9ADF78B553A" target="_blank" rel="noopener">Ansolabehere, Rodden &amp; Snyder, 2008</a>).</li>
+      <li><b>Vários eixos, sem rótulo de esquerda/direita.</b> As opiniões das pessoas não cabem numa linha só; muita gente é progressista num tema e conservadora em outro (<a href="https://scholars.duke.edu/publication/714352" target="_blank" rel="noopener">Treier &amp; Hillygus, 2009</a>; <a href="https://scholars.duke.edu/publication/745676" target="_blank" rel="noopener">Feldman &amp; Johnston, 2014</a>). No Brasil, os rótulos esquerda e direita organizam pouco as preferências do eleitorado (<a href="https://scielo.br/j/op/a/Pb63mLjcLy8pNzjjKRGMzmG/abstract/?lang=en" target="_blank" rel="noopener">estudo com dados do ESEB na revista Opinião Pública</a>). Por isso as perguntas falam de políticas concretas, não de ideologias.</li>
+      <li><b>Fotos.</b> As fotos vêm de bancos de imagem com licença livre, como o Wikimedia Commons. <span id="credlist"></span></li>
+      <li><b>Limites.</b> As posições das políticas são estimativas do Claude a partir da trajetória pública de cada uma, não números do 12axes, e podem ser contestadas. As perguntas são originais; só a ideia dos 12 eixos vem do 12axes.</li>
+    </ul>
+  </details>
+</div>
+
+<script>
+/* ================== FOTOS ==================
+   Para cada política, cole em "url" o link direto da imagem (ex.: https://upload.wikimedia.org/...jpg)
+   e em "credito" a atribuição pedida pela licença (ex.: "Fulana de Tal, CC BY-SA 4.0, via Wikimedia Commons").
+   Quem ficar com url vazia aparece com as iniciais. Veja o README para o passo a passo. */
+const FOTOS_SITE={
+ "Dilma Rousseff": {url:"", credito:""},
+ "Erika Hilton": {url:"", credito:""},
+ "Sônia Guajajara": {url:"", credito:""},
+ "Marina Silva": {url:"", credito:""},
+ "Gleisi Hoffmann": {url:"", credito:""},
+ "Marta Suplicy": {url:"", credito:""},
+ "Anielle Franco": {url:"", credito:""},
+ "Benedita da Silva": {url:"", credito:""},
+ "Maria do Rosário": {url:"", credito:""},
+ "Manuela d'Ávila": {url:"", credito:""},
+ "Jandira Feghali": {url:"", credito:""},
+ "Luiza Erundina": {url:"", credito:""},
+ "Sâmia Bomfim": {url:"", credito:""},
+ "Luciana Genro": {url:"", credito:""},
+ "Fernanda Melchionna": {url:"", credito:""},
+ "Célia Xakriabá": {url:"", credito:""},
+ "Joenia Wapichana": {url:"", credito:""},
+ "Duda Salabert": {url:"", credito:""},
+ "Heloísa Helena": {url:"", credito:""},
+ "Tabata Amaral": {url:"", credito:""},
+ "Simone Tebet": {url:"", credito:""},
+ "Mara Gabrilli": {url:"", credito:""},
+ "Eliziane Gama": {url:"", credito:""},
+ "Raquel Lyra": {url:"", credito:""},
+ "Ana Amélia Lemos": {url:"", credito:""},
+ "Kátia Abreu": {url:"", credito:""},
+ "Tereza Cristina": {url:"", credito:""},
+ "Soraya Thronicke": {url:"", credito:""},
+ "Adriana Ventura": {url:"", credito:""},
+ "Janaina Paschoal": {url:"", credito:""},
+ "Joice Hasselmann": {url:"", credito:""},
+ "Damares Alves": {url:"", credito:""},
+ "Michelle Bolsonaro": {url:"", credito:""},
+ "Carla Zambelli": {url:"", credito:""},
+ "Bia Kicis": {url:"", credito:""},
+ "Chris Tonietto": {url:"", credito:""},
+ "Angela Merkel": {url:"", credito:""},
+ "Ursula von der Leyen": {url:"", credito:""},
+ "Alice Weidel": {url:"", credito:""},
+ "Sahra Wagenknecht": {url:"", credito:""},
+ "Rosa Luxemburgo": {url:"", credito:""},
+ "Margaret Thatcher": {url:"", credito:""},
+ "Kemi Badenoch": {url:"", credito:""},
+ "Marine Le Pen": {url:"", credito:""},
+ "Giorgia Meloni": {url:"", credito:""},
+ "Sanna Marin": {url:"", credito:""},
+ "Mette Frederiksen": {url:"", credito:""},
+ "Yulia Tymoshenko": {url:"", credito:""},
+ "Kamala Harris": {url:"", credito:""},
+ "Hillary Clinton": {url:"", credito:""},
+ "Nancy Pelosi": {url:"", credito:""},
+ "Alexandria Ocasio-Cortez": {url:"", credito:""},
+ "Elizabeth Warren": {url:"", credito:""},
+ "Ilhan Omar": {url:"", credito:""},
+ "Tulsi Gabbard": {url:"", credito:""},
+ "Nikki Haley": {url:"", credito:""},
+ "Sarah Palin": {url:"", credito:""},
+ "Marjorie Taylor Greene": {url:"", credito:""},
+ "Lauren Boebert": {url:"", credito:""},
+ "Claudia Sheinbaum": {url:"", credito:""},
+ "Xiomara Castro": {url:"", credito:""},
+ "Delcy Rodríguez": {url:"", credito:""},
+ "María Corina Machado": {url:"", credito:""},
+ "Cristina Kirchner": {url:"", credito:""},
+ "Eva Perón": {url:"", credito:""},
+ "Patricia Bullrich": {url:"", credito:""},
+ "Victoria Villarruel": {url:"", credito:""},
+ "Michelle Bachelet": {url:"", credito:""},
+ "Golda Meir": {url:"", credito:""},
+ "Indira Gandhi": {url:"", credito:""},
+ "Benazir Bhutto": {url:"", credito:""},
+ "Sheikh Hasina": {url:"", credito:""},
+ "Aung San Suu Kyi": {url:"", credito:""},
+ "Tsai Ing-wen": {url:"", credito:""},
+ "Park Geun-hye": {url:"", credito:""},
+ "Sanae Takaichi": {url:"", credito:""},
+ "Jacinda Ardern": {url:"", credito:""},
+ "Ellen Johnson Sirleaf": {url:"", credito:""},
+};
+const AXES=[
+ ["Estrutura","Federal","Unitário","g"],
+ ["Representação","Democracia","Autocracia","g"],
+ ["Poder","Segurança","Liberdade","g"],
+ ["Imigração","Assimilação","Multiculturalismo","i"],
+ ["Diplomacia","Militarista","Pacifista","i"],
+ ["Intervenção","Não intervencionista","Nacionalista","i"],
+ ["Economia","Público","Privado","e"],
+ ["Controle","Planejamento","Livre mercado","e"],
+ ["Comércio","Protecionismo","Globalismo","e"],
+ ["Religião","Irreligioso","Religioso","s"],
+ ["Moral","Progressista","Tradicionalista","s"],
+ ["Tecnologia","Tecnologia","Biologia","s"]
+];
+const CATS={g:"Governamental",i:"Internacional",e:"Econômico",s:"Social"};
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+// Tipos: "op" = respostas específicas [texto, valor 0–100 rumo ao 2º polo]; "par" = duas afirmações, a = valor 0 e b = valor 100 salvo inv
+const Q=[
+ [0,"op","Quem deveria decidir o currículo das escolas públicas?",[["Cada escola, junto com a comunidade",0],["Os estados e municípios",30],["Uma base nacional, com espaço para adaptar",65],["O governo federal, igual para o país todo",100]]],
+ [0,"par",null,["Cada estado deveria poder ter suas próprias leis sobre armas, drogas e aborto.","Leis sobre esses temas precisam ser as mesmas em todo o país."]],
+ [0,"op","A maior parte dos impostos arrecadados deveria ficar com…",[["Os municípios",0],["Os estados",30],["Dividida mais ou menos como hoje",55],["A União, que redistribui entre as regiões",90]]],
+ [0,"sit","Um estado quer fazer um plebiscito para se separar do Brasil. O que deveria acontecer?",[["Deixar votar e respeitar o resultado",0],["Deixar votar, mas exigir aprovação do Congresso",35],["Proibir o plebiscito, mas negociar mais autonomia",65],["Proibir: a união do país não se discute",100]]],
+ [1,"sit","Uma presidenta eleita não consegue aprovar nada porque o Congresso trava tudo. Que saída você aceita?",[["Negociar, mesmo que leve anos",0],["Chamar um plebiscito sobre as propostas",15],["Governar por decretos até o limite da lei",60],["Fechar o Congresso por um tempo",100]]],
+ [1,"op","Se uma eleição tivesse um resultado que você considera desastroso, o que seria aceitável?",[["Aceitar e fazer oposição",0],["Contestar na Justiça Eleitoral, com provas",15],["Pedir que as Forças Armadas avaliem",85],["Impedir a posse",100]]],
+ [1,"par",null,["Mesmo errando, é o povo quem deve escolher quem governa.","Um governo de especialistas, sem eleições, resolveria melhor os problemas do país."]],
+ [1,"op","Com que frequência a população deveria decidir diretamente, em plebiscitos e consultas?",[["Sempre que houver tema importante",0],["De vez em quando, em temas muito polêmicos",20],["Raramente; para isso elegemos representantes",45],["Nunca; o povo não tem preparo para isso",95]]],
+ [2,"op","Câmeras com reconhecimento facial em ruas, estações e estádios:",[["Deveriam estar em todo lugar",0],["Só em áreas com muito crime",35],["Só com ordem judicial para buscar suspeitos",70],["Não deveriam ser usadas",100]]],
+ [2,"op","Sobre a maconha:",[["Proibir e punir quem usa",0],["Proibir, mas tratar o uso como questão de saúde",35],["Liberar uso medicinal e porte para consumo",65],["Legalizar produção e venda, como o álcool",100]]],
+ [2,"par",null,["Para reduzir o crime, a polícia precisa de mais liberdade para agir, mesmo com algum risco de abuso.","Dar mais poder à polícia sem controle gera abusos, principalmente contra os mais pobres."]],
+ [2,"op","As redes sociais deveriam ser obrigadas a remover conteúdo falso?",[["Sim, rápido e com multa alta",0],["Sim, mas só depois de ordem judicial",45],["Só em crimes claros, como ameaças",75],["Não; cada pessoa decide no que acredita",100]]],
+ [3,"sit","Uma família venezuelana se muda para o Brasil. O que se deve esperar dela?",[["Que aprenda português e adote os costumes daqui",0],["Que se adapte, mantendo o que quiser em casa",35],["Que receba apoio para manter língua e cultura",70],["Que os serviços públicos também se adaptem a ela, inclusive na língua",100]]],
+ [3,"par",null,["Povos indígenas devem ser integrados ao restante da sociedade, com as mesmas regras.","Terras indígenas devem ser demarcadas e geridas pelos próprios povos, segundo suas regras."]],
+ [3,"op","A entrada de imigrantes no Brasil deveria ser…",[["Bem mais restrita",0],["Permitida só com emprego ou qualificação",30],["Mais ou menos como hoje",55],["Mais aberta, com acolhida humanitária ampla",100]]],
+ [3,"op","História e cultura africana e indígena nas escolas:",[["Não precisam de espaço especial",0],["Dentro da história geral do Brasil",35],["Conteúdo obrigatório próprio",75],["Obrigatório e ensinado também por pessoas dessas comunidades",100]]],
+ [4,"op","O orçamento das Forças Armadas deveria…",[["Aumentar bastante",0],["Aumentar um pouco",30],["Ficar como está",55],["Diminuir, com o dinheiro indo para outras áreas",100]]],
+ [4,"par",null,["O Brasil deveria ter armas nucleares para ser respeitado.","O Brasil deve manter o compromisso de não ter armas nucleares."]],
+ [4,"sit","Um país invade parte do território de um vizinho. O Brasil deveria…",[["Mandar tropas para ajudar o país invadido",0],["Mandar armas, sem tropas",25],["Aplicar sanções e tentar mediar",65],["Só tentar mediar a paz",100]]],
+ [4,"op","Serviço militar:",[["Obrigatório para todos, homens e mulheres",0],["Obrigatório só para homens, como hoje",30],["Voluntário",70],["Substituído por um serviço civil",100]]],
+ [5,"par",null,["O Brasil não deve se meter nos assuntos internos de outros países.","O Brasil deve usar seu peso para pressionar países vizinhos de acordo com o interesse nacional."]],
+ [5,"op","Decisões de cortes internacionais (como a Corte Interamericana) contra o Brasil:",[["Devem ser cumpridas sempre",0],["Cumpridas, com direito de contestar",30],["Cumpridas só se o Congresso concordar",70],["O Brasil não deveria se submeter a elas",100]]],
+ [5,"op","Hino, bandeira e datas cívicas nas escolas:",[["Não precisam de destaque",0],["Só em datas comemorativas",35],["Toda semana",70],["Todo dia, obrigatoriamente",100]]],
+ [5,"par",null,["O Brasil deve seguir acordos ambientais internacionais, mesmo que limitem a economia.","A Amazônia é nossa; outros países não devem dar palpite sobre como usamos ela."]],
+ [6,"op","Água e esgoto deveriam ser administrados por…",[["Empresa estatal",0],["Estatal, com parcerias pontuais",30],["Empresas privadas com regulação forte",70],["Empresas privadas, com pouca regulação",100]]],
+ [6,"op","A Petrobras deveria ser…",[["100% estatal",0],["Estatal com ações na bolsa, como hoje",35],["Mais privatizada, com governo minoritário",70],["Totalmente privatizada",100]]],
+ [6,"par",null,["Dinheiro público deve ir só para escolas e hospitais públicos.","O governo deveria dar vales para cada família escolher entre serviço público e privado."]],
+ [6,"op","Ônibus e metrô nas cidades:",[["Tarifa zero, paga pelo poder público",0],["Públicos e subsidiados",30],["Concessão privada com tarifa regulada",65],["Livre concorrência entre empresas e aplicativos",100]]],
+ [7,"sit","O preço do arroz dispara. O governo deveria…",[["Tabelar o preço",0],["Comprar e vender de estoques públicos",30],["Dar auxílio às famílias pobres e deixar o preço livre",70],["Não fazer nada; o mercado se ajusta",100]]],
+ [7,"op","Impostos sobre grandes fortunas e heranças:",[["Bem mais altos",0],["Um pouco mais altos",30],["Como estão",60],["Mais baixos ou extintos",100]]],
+ [7,"par",null,["O Estado deve planejar quais setores vão crescer, com crédito público como o do BNDES.","O governo não deve escolher vencedores; empresas e consumidores decidem melhor."]],
+ [7,"op","As leis trabalhistas (CLT) deveriam…",[["Proteger mais quem trabalha, incluindo motoristas de aplicativo",0],["Ficar como estão",35],["Ser mais flexíveis",70],["Valer menos que o acordo direto entre patrão e empregado",100]]],
+ [8,"op","Produtos importados mais baratos, como roupas e eletrônicos da China:",[["Taxar pesado para proteger a indústria nacional",0],["Taxar o suficiente para equilibrar a concorrência",35],["Taxar pouco",70],["Zerar as taxas",100]]],
+ [8,"par",null,["Acordos de livre comércio, como Mercosul e União Europeia, fecham fábricas e empregos aqui.","Esses acordos baixam preços e abrem mercados, e no fim beneficiam a população."]],
+ [8,"op","Fabricar aqui remédios, chips e fertilizantes, mesmo saindo mais caro:",[["É essencial",0],["Vale para alguns setores estratégicos",35],["Só se for competitivo",70],["Melhor comprar de quem produz mais barato",100]]],
+ [8,"op","Estrangeiros comprando terras no Brasil:",[["Proibir",0],["Limitar bastante",30],["Permitir, com regras",70],["Liberar",100]]],
+ [9,"op","Qual deveria ser o papel da religião na vida pública?",[["Nenhum; religião mais atrapalha que ajuda",0],["Assunto privado, fora das leis",30],["Pode inspirar valores, mas não as leis",55],["Deveria orientar as leis",100]]],
+ [9,"par",null,["Templos e igrejas devem pagar impostos como qualquer instituição.","A isenção de impostos para templos e igrejas deve ser mantida."]],
+ [9,"op","Ensino religioso nas escolas públicas:",[["Não deveria existir",0],["Opcional e sobre várias religiões",35],["Obrigatório, sobre várias religiões",65],["Obrigatório e de uma fé específica, à escolha da família",100]]],
+ [9,"par",null,["Dá para ter uma ética sólida sem religião.","Uma sociedade que se afasta de Deus perde o rumo moral."]],
+ [10,"op","Aborto:",[["Legal e oferecido pelo SUS",0],["Legal nas primeiras semanas",25],["Só nos casos permitidos hoje (estupro, risco de vida, anencefalia)",70],["Proibido em todos os casos",100]]],
+ [10,"op","Casamento entre pessoas do mesmo sexo:",[["Direitos iguais, inclusive adoção",0],["União civil, com alguns limites",45],["Não deveria ser reconhecido",100]]],
+ [10,"par",null,["Escolas devem discutir gênero e diversidade sexual.","Esses temas são assunto das famílias, não da escola."]],
+ [10,"op","Mudança de nome e gênero nos documentos para pessoas trans:",[["Direto no cartório, sem exigências",0],["Com laudo médico",50],["Não deveria ser permitida",100]]],
+ [11,"op","Nos próximos anos, a inteligência artificial vai…",[["Melhorar muito a vida das pessoas",0],["Ajudar, se for bem regulada",35],["Trazer mais problemas que soluções",70],["Precisa ser freada",100]]],
+ [11,"op","Edição genética em embriões humanos:",[["Permitir, inclusive para melhorar capacidades",0],["Permitir só para evitar doenças graves",35],["Só em pesquisa, sem uso em pessoas",70],["Proibir",100]]],
+ [11,"par",null,["Agrotóxicos e transgênicos são necessários para alimentar o mundo.","Precisamos voltar a formas de produzir mais naturais, como a agroecologia."]],
+ [11,"sit","Uma mineradora quer extrair, numa área de floresta, um minério essencial para baterias de carros elétricos.",[["Extrair, com compensação ambiental",0],["Extrair com regras rígidas",35],["Só se as comunidades locais aprovarem",70],["Não extrair",100]]]
+];
+const PAIR_OPTS=[["Bem mais perto da A",0],["Um pouco mais perto da A",33],["Um pouco mais perto da B",67],["Bem mais perto da B",100]];
+const KIND={op:"Escolha a resposta mais próxima",par:"Qual afirmação chega mais perto do que você pensa?",sit:"Situação"};
+
+// nome, país, descrição, região, 12 valores (0 = 1º polo, 100 = 2º polo) — estimativas
+const P=[
+ ["Dilma Rousseff","Brasil","PT · ex-presidenta","br",[50,20,45,60,65,50,25,30,40,40,35,40]],
+ ["Erika Hilton","Brasil","PSOL · deputada federal","br",[45,15,75,85,80,45,20,30,40,25,5,40]],
+ ["Sônia Guajajara","Brasil","PSOL · liderança indígena, ministra no governo Lula 3","br",[35,15,65,90,80,35,25,35,30,40,25,75]],
+ ["Marina Silva","Brasil","Rede · ambientalista, ministra nos governos Lula","br",[45,15,55,65,80,30,40,45,50,75,45,70]],
+ ["Gleisi Hoffmann","Brasil","PT · deputada federal","br",[50,25,50,65,65,55,20,25,35,40,30,45]],
+ ["Marta Suplicy","Brasil","PT · ex-prefeita de São Paulo","br",[50,15,55,60,60,45,35,40,45,40,25,40]],
+ ["Anielle Franco","Brasil","PT · ministra no governo Lula 3","br",[45,15,65,85,75,40,25,35,40,45,20,45]],
+ ["Benedita da Silva","Brasil","PT · deputada federal","br",[45,15,55,75,75,40,25,35,40,75,35,50]],
+ ["Maria do Rosário","Brasil","PT · deputada federal (RS)","br",[45,15,65,75,75,40,20,30,40,40,20,45]],
+ ["Manuela d'Ávila","Brasil","ex-deputada federal (RS)","br",[45,20,60,70,75,45,15,25,35,35,20,40]],
+ ["Jandira Feghali","Brasil","PCdoB · deputada federal","br",[50,20,55,70,75,50,20,25,35,35,20,40]],
+ ["Luiza Erundina","Brasil","PSOL · deputada federal","br",[40,15,60,70,80,40,20,30,35,50,30,45]],
+ ["Sâmia Bomfim","Brasil","PSOL · deputada federal","br",[45,15,70,80,80,45,15,25,35,25,10,45]],
+ ["Luciana Genro","Brasil","PSOL · deputada estadual (RS)","br",[45,15,65,75,80,45,15,25,30,30,15,45]],
+ ["Fernanda Melchionna","Brasil","PSOL · deputada federal (RS)","br",[45,15,70,80,80,45,15,25,30,30,10,45]],
+ ["Célia Xakriabá","Brasil","PSOL · deputada federal","br",[35,15,65,90,80,35,20,30,30,45,20,80]],
+ ["Joenia Wapichana","Brasil","Rede · primeira deputada federal indígena","br",[35,15,60,90,80,35,30,40,40,45,30,75]],
+ ["Duda Salabert","Brasil","PDT · deputada federal","br",[45,15,70,80,80,40,25,35,40,30,10,60]],
+ ["Heloísa Helena","Brasil","Rede · ex-senadora","br",[45,20,40,55,70,50,20,30,30,75,60,50]],
+ ["Tabata Amaral","Brasil","PSB · deputada federal","br",[45,15,55,65,65,40,40,50,60,50,30,30]],
+ ["Simone Tebet","Brasil","MDB · candidata à presidência em 2022","br",[45,15,50,55,60,40,55,60,55,60,50,40]],
+ ["Mara Gabrilli","Brasil","PSD · senadora","br",[45,15,50,60,55,40,60,65,65,45,40,30]],
+ ["Eliziane Gama","Brasil","PSD · senadora","br",[45,15,50,60,60,45,45,50,55,70,50,45]],
+ ["Raquel Lyra","Brasil","PSD · governadora de PE eleita em 2022","br",[45,15,45,55,55,45,55,60,60,55,50,40]],
+ ["Ana Amélia Lemos","Brasil","ex-senadora (RS)","br",[45,20,40,45,45,55,70,75,60,60,60,40]],
+ ["Kátia Abreu","Brasil","ex-ministra da Agricultura","br",[50,20,40,45,50,55,65,70,70,55,55,30]],
+ ["Tereza Cristina","Brasil","PP · senadora","br",[50,25,40,45,50,60,70,75,65,65,65,30]],
+ ["Soraya Thronicke","Brasil","Podemos · senadora","br",[45,25,40,45,45,55,70,75,60,55,55,40]],
+ ["Adriana Ventura","Brasil","Novo · deputada federal","br",[40,15,55,50,50,45,85,90,80,45,50,35]],
+ ["Janaina Paschoal","Brasil","ex-deputada estadual","br",[50,30,30,45,45,60,65,70,55,70,70,50]],
+ ["Joice Hasselmann","Brasil","ex-deputada federal","br",[50,30,30,40,40,65,75,80,55,60,65,45]],
+ ["Damares Alves","Brasil","Republicanos · senadora","br",[55,30,30,40,45,65,60,65,45,95,95,55]],
+ ["Michelle Bolsonaro","Brasil","PL Mulher","br",[55,35,30,40,45,70,70,75,50,95,90,55]],
+ ["Carla Zambelli","Brasil","ex-deputada federal (PL)","br",[55,45,20,35,35,75,75,80,45,80,90,45]],
+ ["Bia Kicis","Brasil","PL · deputada federal","br",[50,40,25,35,35,75,80,85,50,80,90,50]],
+ ["Chris Tonietto","Brasil","PL · deputada federal","br",[50,35,25,30,35,75,75,80,45,95,98,55]],
+ ["Angela Merkel","Alemanha","CDU · ex-chanceler","int",[40,10,45,60,60,35,50,65,75,60,50,40]],
+ ["Ursula von der Leyen","União Europeia","Comissão Europeia","int",[35,15,45,60,40,30,50,65,80,55,40,30]],
+ ["Alice Weidel","Alemanha","AfD","int",[35,30,30,10,45,85,75,80,45,40,70,50]],
+ ["Sahra Wagenknecht","Alemanha","BSW","int",[50,20,45,25,80,70,20,30,25,30,50,50]],
+ ["Rosa Luxemburgo","Alemanha/Polônia","socialista revolucionária (1871–1919)","int",[50,30,70,75,90,40,5,10,40,5,25,40]],
+ ["Margaret Thatcher","Reino Unido","Conservadora · ex-primeira-ministra","int",[65,20,30,35,30,65,85,90,75,60,65,40]],
+ ["Kemi Badenoch","Reino Unido","Partido Conservador","int",[65,20,35,25,35,60,80,85,70,35,65,35]],
+ ["Marine Le Pen","França","Rassemblement National","int",[70,30,25,15,45,90,45,45,20,55,65,50]],
+ ["Giorgia Meloni","Itália","Fratelli d'Italia · primeira-ministra","int",[55,25,25,20,35,80,60,60,45,70,75,50]],
+ ["Sanna Marin","Finlândia","social-democrata · ex-primeira-ministra","int",[55,10,55,70,50,35,30,40,60,20,15,35]],
+ ["Mette Frederiksen","Dinamarca","social-democrata","int",[60,15,40,35,45,55,35,45,60,40,35,40]],
+ ["Yulia Tymoshenko","Ucrânia","Batkivshchyna","int",[60,25,40,40,40,60,40,45,50,55,55,40]],
+ ["Kamala Harris","EUA","Democrata · ex-vice-presidenta","int",[40,15,55,70,45,30,40,55,60,45,25,35]],
+ ["Hillary Clinton","EUA","Democrata · ex-secretária de Estado","int",[40,15,45,65,35,30,45,60,65,50,30,35]],
+ ["Nancy Pelosi","EUA","Democrata · ex-presidenta da Câmara","int",[40,15,50,70,45,35,40,55,55,50,25,35]],
+ ["Alexandria Ocasio-Cortez","EUA","Democrata · deputada","int",[40,10,65,80,70,35,20,30,40,40,15,45]],
+ ["Elizabeth Warren","EUA","Democrata · senadora","int",[40,10,55,70,55,40,25,40,45,45,20,40]],
+ ["Ilhan Omar","EUA","Democrata · deputada","int",[40,15,65,90,80,35,20,30,40,70,30,45]],
+ ["Tulsi Gabbard","EUA","ex-democrata, governo Trump","int",[40,25,50,40,70,70,50,60,45,65,55,45]],
+ ["Nikki Haley","EUA","Republicana · ex-embaixadora na ONU","int",[30,20,35,40,25,55,80,85,70,70,70,35]],
+ ["Sarah Palin","EUA","Republicana · ex-governadora","int",[25,30,35,30,35,80,80,85,50,80,85,55]],
+ ["Marjorie Taylor Greene","EUA","Republicana · deputada","int",[15,45,35,20,40,85,80,80,35,85,90,60]],
+ ["Lauren Boebert","EUA","Republicana · deputada","int",[15,40,35,25,40,85,85,85,40,85,90,55]],
+ ["Claudia Sheinbaum","México","Morena · presidenta","int",[50,20,50,60,70,45,25,30,45,25,25,30]],
+ ["Xiomara Castro","Honduras","Libre · ex-presidenta","int",[55,25,45,60,70,55,25,30,35,60,55,45]],
+ ["Delcy Rodríguez","Venezuela","PSUV","int",[70,75,20,50,55,80,15,15,25,40,40,45]],
+ ["María Corina Machado","Venezuela","Vente Venezuela","int",[45,15,40,45,45,50,85,90,80,65,55,40]],
+ ["Cristina Kirchner","Argentina","peronista · ex-presidenta","int",[50,30,45,60,65,65,15,20,20,45,35,45]],
+ ["Eva Perón","Argentina","peronista (1919–1952)","int",[60,40,40,50,55,70,20,25,25,70,55,45]],
+ ["Patricia Bullrich","Argentina","senadora, governo Milei","int",[50,25,15,35,40,60,80,85,70,55,55,40]],
+ ["Victoria Villarruel","Argentina","vice-presidenta","int",[50,35,15,30,30,80,70,75,50,85,85,55]],
+ ["Michelle Bachelet","Chile","socialista · ex-presidenta","int",[55,10,55,70,75,35,30,40,55,25,20,40]],
+ ["Golda Meir","Israel","Trabalhista · ex-primeira-ministra","int",[60,20,25,40,25,70,40,40,45,40,50,35]],
+ ["Indira Gandhi","Índia","Congresso · ex-primeira-ministra","int",[70,45,20,45,35,70,20,20,25,45,50,40]],
+ ["Benazir Bhutto","Paquistão","PPP · ex-primeira-ministra","int",[55,25,40,50,50,55,40,45,50,65,55,40]],
+ ["Sheikh Hasina","Bangladesh","Liga Awami · ex-primeira-ministra","int",[70,55,20,40,45,65,35,40,55,65,55,35]],
+ ["Aung San Suu Kyi","Mianmar","NLD","int",[55,25,40,30,75,60,45,50,55,75,60,50]],
+ ["Tsai Ing-wen","Taiwan","DPP · ex-presidenta","int",[55,15,45,60,40,50,45,60,75,40,30,30]],
+ ["Park Geun-hye","Coreia do Sul","ex-presidenta","int",[65,30,25,35,35,60,55,60,65,55,65,35]],
+ ["Sanae Takaichi","Japão","PLD · primeira-ministra","int",[65,25,25,20,30,75,55,55,55,55,75,30]],
+ ["Jacinda Ardern","Nova Zelândia","Trabalhista · ex-primeira-ministra","int",[60,10,50,75,75,35,40,50,65,35,15,40]],
+ ["Ellen Johnson Sirleaf","Libéria","ex-presidenta","int",[55,20,45,55,60,40,55,65,75,65,55,40]]
+];
+const BIO={"Dilma Rousseff": "Economista, primeira mulher eleita presidenta do Brasil (2011–2016), afastada por impeachment em 2016.", "Erika Hilton": "Uma das primeiras deputadas federais trans do Brasil, eleita por São Paulo em 2022, com atuação em direitos LGBTQIA+ e combate ao racismo.", "Sônia Guajajara": "Liderança indígena do Maranhão, foi a primeira ministra dos Povos Indígenas, pasta criada em 2023.", "Marina Silva": "Nascida no Acre, ex-seringueira, ex-senadora e ministra do Meio Ambiente em dois governos Lula; referência da pauta ambiental.", "Gleisi Hoffmann": "Ex-senadora e deputada pelo Paraná, presidiu o PT por vários anos.", "Marta Suplicy": "Psicóloga, ex-prefeita de São Paulo e ex-ministra; passou pelo MDB e voltou ao PT.", "Anielle Franco": "Educadora e irmã de Marielle Franco, fundou o instituto com o nome da irmã e assumiu o Ministério da Igualdade Racial em 2023.", "Benedita da Silva": "Primeira senadora negra do Brasil e ex-governadora do Rio; evangélica e militante do movimento negro.", "Maria do Rosário": "Deputada federal gaúcha, foi ministra dos Direitos Humanos no governo Dilma.", "Manuela d'Ávila": "Ex-deputada federal pelo RS, foi candidata a vice-presidenta em 2018 na chapa de Fernando Haddad.", "Jandira Feghali": "Médica e deputada federal pelo Rio, com atuação em saúde e direitos das mulheres.", "Luiza Erundina": "Assistente social paraibana, foi a primeira mulher prefeita de São Paulo (1989–1992).", "Sâmia Bomfim": "Deputada federal por São Paulo, vinda do movimento estudantil e feminista.", "Luciana Genro": "Gaúcha, uma das fundadoras do PSOL e candidata à presidência em 2014.", "Fernanda Melchionna": "Deputada federal gaúcha, foi vereadora de Porto Alegre.", "Célia Xakriabá": "Professora e liderança indígena de Minas Gerais, eleita deputada federal em 2022.", "Joenia Wapichana": "Advogada de Roraima, primeira mulher indígena eleita deputada federal (2018), depois presidenta da Funai.", "Duda Salabert": "Professora, foi a vereadora mais votada de Belo Horizonte e depois eleita deputada federal.", "Heloísa Helena": "Enfermeira alagoana, expulsa do PT em 2003, ajudou a fundar o PSOL e disputou a presidência em 2006.", "Tabata Amaral": "Cientista política formada em Harvard, deputada federal por São Paulo com foco em educação.", "Simone Tebet": "Advogada e professora, ex-senadora pelo MS, terceira colocada na eleição presidencial de 2022 e depois ministra do Planejamento.", "Mara Gabrilli": "Tetraplégica desde um acidente, senadora por São Paulo com atuação nos direitos das pessoas com deficiência.", "Eliziane Gama": "Jornalista e senadora pelo Maranhão, evangélica.", "Raquel Lyra": "Ex-prefeita de Caruaru, eleita governadora de Pernambuco em 2022.", "Ana Amélia Lemos": "Jornalista gaúcha, ex-senadora, candidata a vice-presidenta em 2018 na chapa de Geraldo Alckmin.", "Kátia Abreu": "Ex-senadora pelo Tocantins e liderança do agronegócio, ministra da Agricultura no governo Dilma.", "Tereza Cristina": "Engenheira agrônoma, ministra da Agricultura no governo Bolsonaro e depois senadora pelo MS.", "Soraya Thronicke": "Advogada e senadora pelo MS, candidata à presidência em 2022.", "Adriana Ventura": "Médica e professora, deputada federal pelo Novo em São Paulo, defensora do liberalismo econômico.", "Janaina Paschoal": "Professora de direito da USP, coautora do pedido de impeachment de Dilma Rousseff.", "Joice Hasselmann": "Jornalista, foi líder do governo Bolsonaro no Congresso e depois rompeu com ele.", "Damares Alves": "Pastora e advogada, ministra da Mulher, Família e Direitos Humanos no governo Bolsonaro e depois eleita senadora pelo DF.", "Michelle Bolsonaro": "Ex-primeira-dama, evangélica, preside o PL Mulher.", "Carla Zambelli": "Deputada federal por São Paulo eleita em 2018 e 2022, uma das principais aliadas de Jair Bolsonaro.", "Bia Kicis": "Procuradora aposentada, deputada federal pelo DF e aliada de Jair Bolsonaro.", "Chris Tonietto": "Advogada, deputada federal pelo Rio, ligada a pautas católicas e contrária ao aborto.", "Angela Merkel": "Física, foi chanceler da Alemanha por 16 anos (2005–2021).", "Ursula von der Leyen": "Médica, ex-ministra da Defesa da Alemanha, preside a Comissão Europeia desde 2019.", "Alice Weidel": "Economista, lidera a AfD, partido de direita radical contrário à imigração.", "Sahra Wagenknecht": "Ex-líder do partido A Esquerda, fundou o BSW, que combina economia de esquerda e restrição à imigração.", "Rosa Luxemburgo": "Teórica marxista e cofundadora do Partido Comunista Alemão, assassinada em 1919.", "Margaret Thatcher": "Primeira-ministra do Reino Unido (1979–1990), associada às privatizações e ao liberalismo econômico.", "Kemi Badenoch": "Engenheira, lidera o Partido Conservador britânico desde 2024.", "Marine Le Pen": "Liderou a Frente Nacional, depois Reunião Nacional, e disputou três eleições presidenciais na França.", "Giorgia Meloni": "Primeira mulher a chefiar o governo da Itália, à frente do partido Irmãos de Itália.", "Sanna Marin": "Chegou a primeira-ministra da Finlândia aos 34 anos (2019–2023) e conduziu a entrada do país na OTAN.", "Mette Frederiksen": "Primeira-ministra da Dinamarca desde 2019, social-democrata com política de imigração restritiva.", "Yulia Tymoshenko": "Uma das líderes da Revolução Laranja, foi primeira-ministra da Ucrânia.", "Kamala Harris": "Primeira mulher vice-presidenta dos EUA e candidata democrata à presidência em 2024.", "Hillary Clinton": "Ex-primeira-dama, senadora e secretária de Estado dos EUA, candidata à presidência em 2016.", "Nancy Pelosi": "Primeira mulher a presidir a Câmara dos Representantes dos EUA.", "Alexandria Ocasio-Cortez": "Deputada por Nova York desde 2019, da ala socialista democrática do Partido Democrata.", "Elizabeth Warren": "Professora de direito em Harvard, senadora por Massachusetts e crítica de Wall Street.", "Ilhan Omar": "Refugiada somali, uma das primeiras mulheres muçulmanas eleitas para o Congresso dos EUA.", "Tulsi Gabbard": "Veterana do Exército, deixou o Partido Democrata e assumiu a Direção de Inteligência Nacional no governo Trump.", "Nikki Haley": "Ex-governadora da Carolina do Sul e embaixadora na ONU, disputou as primárias republicanas de 2024.", "Sarah Palin": "Ex-governadora do Alasca, candidata a vice-presidenta em 2008 e figura do movimento Tea Party.", "Marjorie Taylor Greene": "Deputada pela Geórgia, ligada ao movimento MAGA.", "Lauren Boebert": "Deputada pelo Colorado, conhecida pela defesa do porte de armas.", "Claudia Sheinbaum": "Cientista climática, primeira mulher presidenta do México, eleita em 2024.", "Xiomara Castro": "Primeira mulher presidenta de Honduras (2022–2026).", "Delcy Rodríguez": "Figura central do chavismo, vice-presidenta da Venezuela no governo Maduro.", "María Corina Machado": "Engenheira, principal liderança da oposição venezuelana, Nobel da Paz de 2025.", "Cristina Kirchner": "Presidenta da Argentina (2007–2015) e vice-presidenta (2019–2023), principal liderança do kirchnerismo.", "Eva Perón": "Primeira-dama de Juan Perón, impulsionou a aprovação do voto feminino na Argentina em 1947.", "Patricia Bullrich": "Ministra da Segurança nos governos Macri e Milei, defensora de linha dura contra o crime.", "Victoria Villarruel": "Advogada, vice-presidenta de Javier Milei, ligada a setores militares e católicos conservadores.", "Michelle Bachelet": "Médica, presidenta do Chile duas vezes e Alta Comissária da ONU para os Direitos Humanos.", "Golda Meir": "Primeira-ministra de Israel (1969–1974), nascida na Ucrânia e criada nos EUA.", "Indira Gandhi": "Primeira-ministra da Índia por 15 anos, decretou estado de emergência entre 1975 e 1977.", "Benazir Bhutto": "Primeira mulher a governar um país de maioria muçulmana, assassinada em 2007.", "Sheikh Hasina": "Governou Bangladesh por mais de 15 anos até ser derrubada por protestos em 2024.", "Aung San Suu Kyi": "Nobel da Paz de 1991, líder civil de Mianmar até o golpe militar de 2021.", "Tsai Ing-wen": "Primeira presidenta de Taiwan (2016–2024).", "Park Geun-hye": "Primeira presidenta da Coreia do Sul, destituída por impeachment em 2017.", "Sanae Takaichi": "Primeira mulher primeira-ministra do Japão, desde 2025, da ala conservadora do PLD.", "Jacinda Ardern": "Primeira-ministra da Nova Zelândia (2017–2023), conhecida pela condução da pandemia.", "Ellen Johnson Sirleaf": "Primeira mulher eleita presidenta de um país africano, Nobel da Paz de 2011."};
+function initials(n){const w=n.replace(/[^\p{L} ]/gu,"").split(" ").filter(Boolean);return (w[0][0]+(w.length>1?w[w.length-1][0]:"")).toUpperCase()}
+function hue(n){let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%360;return h}
+function foto(n){const f=FOTOS_SITE[n];return f&&f.url?f:null}
+function iniHTML(p,size){return `<span class="av ini" style="width:${size}px;height:${size}px;font-size:${Math.round(size*.38)}px;background:hsl(${hue(p[0])} 32% 46%)" aria-hidden="true">${initials(p[0])}</span>`}
+function avatar(p,size){const f=foto(p[0]);
+  if(!f)return iniHTML(p,size);
+  return `<img class="av" src="${f.url}" alt="Foto de ${p[0]}" loading="lazy" style="width:${size}px;height:${size}px" onerror="this.outerHTML=this.dataset.fb" data-fb='${iniHTML(p,size).replace(/'/g,"&#39;")}'>`}
+function photoControl(p){const f=foto(p[0]);return f&&f.credito?`<small class="cred">Foto: ${f.credito}</small>`:""}
+function bindPhotos(){}
+// frases para cada eixo: [1º polo, centro, 2º polo], no infinitivo ("tende a …")
+const FR=[
+ ["dar mais poder a estados e municípios","equilibrar o poder entre União, estados e municípios","concentrar as decisões no governo federal"],
+ ["defender o voto e as instituições democráticas mesmo em crises","aceitar atalhos às instituições em situações extremas","aceitar governos fortes, menos dependentes do voto e do Congresso"],
+ ["priorizar a segurança, mesmo com menos privacidade","buscar equilíbrio entre segurança e liberdades individuais","proteger as liberdades individuais diante do Estado e da polícia"],
+ ["esperar que quem chega se adapte à cultura do país","combinar adaptação à cultura local e respeito às diferenças","valorizar a diversidade cultural e a autonomia de povos e comunidades"],
+ ["defender forças armadas fortes","aceitar a força militar só como último recurso","preferir a mediação e menos gasto militar"],
+ ["respeitar a soberania de outros países e os acordos internacionais","equilibrar interesse nacional e compromissos internacionais","pôr o interesse nacional acima de acordos e organismos internacionais"],
+ ["preferir que o Estado cuide de serviços como água, energia e transporte","aceitar uma mistura de serviços públicos e privados","preferir que empresas privadas cuidem desses serviços"],
+ ["apoiar que o governo regule preços e taxe grandes fortunas","aceitar alguma intervenção do governo na economia, sem exageros","confiar no mercado, com menos impostos e regulação"],
+ ["proteger a indústria nacional com taxas e produção local","abrir o comércio com cuidado, protegendo setores estratégicos","defender o livre comércio e a abertura da economia"],
+ ["manter a religião longe das leis e da escola pública","ver a religião como fonte de valores, mas fora das leis","querer que a fé tenha papel nas leis e na vida pública"],
+ ["defender o aborto legal e os direitos LGBTQIA+","ficar no meio-termo em temas como aborto e família","defender a família tradicional e restrições ao aborto"],
+ ["apostar na ciência e na tecnologia como solução","aceitar novas tecnologias, desde que bem reguladas","desconfiar da tecnologia e preferir modos de vida mais naturais"]
+];
+const zone=x=>x<40?0:x>60?2:1;
+function explain(v,p){
+  const h=p[4],d=AXES.map((a,i)=>({i,d:Math.abs(v[i]-h[i])}));
+  const near=[...d].sort((a,b)=>a.d-b.d).slice(0,3);
+  const far=[...d].sort((a,b)=>b.d-a.d)[0];
+  const first=p[0].split(" ")[0];
+  let html=`<p class="why-h">Onde vocês concordam</p><ul class="why-l">`;
+  near.forEach(o=>{html+=`<li><span class="why-ax">${AXES[o.i][0]}</span>As duas tendem a ${FR[o.i][zone((v[o.i]+h[o.i])/2)]}.</li>`});
+  html+=`</ul>`;
+  if(far.d>=15){
+    const i=far.i,zy=zone(v[i]),zh=zone(h[i]);
+    html+=`<p class="why-h">Onde vocês mais se afastam</p><ul class="why-l"><li><span class="why-ax">${AXES[i][0]}</span>`;
+    if(zy!==zh) html+=`Você tende a ${FR[i][zy]}; ${first} tende a ${FR[i][zh]}.`;
+    else{const youStronger=Math.abs(v[i]-50)>Math.abs(h[i]-50);
+      html+=`As duas tendem a ${FR[i][zy]}, mas ${youStronger?"você vai mais longe nisso do que ela":first+" vai mais longe nisso do que você"}.`}
+    html+=`</li></ul>`;
+  } else html+=`<p class="why-h">Vocês não se afastam muito em nenhum dos 12 eixos.</p>`;
+  return html;
+}
+const $=id=>document.getElementById(id);
+const nBR=P.filter(p=>p[3]==="br").length;
+$("count").textContent=`${P.length} (${nBR} brasileiras)`;
+let ans=new Array(Q.length).fill(undefined), qi=0, you=null, cnt=null, sel=null, full=false, rf="all", lastSource="quiz";
+
+function show(v){
+  ["quiz","manual","list","result"].forEach(k=>{const el=$("v-"+k);el.hidden=k!==v;if(k===v)el.style.display="flex"});
+  const tab=v==="result"?lastSource:v;
+  document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.v===tab)));
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  const v=b.dataset.v;
+  if(v==="quiz"&&you&&lastSource==="quiz"&&qi>=Q.length) show("result");
+  else if(v==="list"){renderList();show("list")} else show(v);
+});
+
+// cores por posição: gradiente entre os dois polos do eixo
+function mix(a,b,t){const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));const A=p(a),B=p(b);return "#"+A.map((x,i)=>Math.round(x+(B[i]-x)*t).toString(16).padStart(2,"0")).join("")}
+function poleColors(ax){const c=AXES[ax][3];return [css("--"+c+"1"),css("--"+c+"2")]}
+
+function renderQ(){
+  const q=Q[qi],[ax,type]=q;
+  $("qnum").textContent=`Pergunta ${qi+1} de ${Q.length}`;
+  $("qaxis").textContent=`${CATS[AXES[ax][3]]} · ${AXES[ax][0]}`;
+  $("qkind").textContent=KIND[type];
+  $("bar").style.width=(qi/Q.length*100)+"%";
+  const pb=$("pairbox");
+  let opts;
+  if(type==="par"){
+    $("qtext").textContent="";$("qtext").hidden=true;pb.hidden=false;
+    pb.innerHTML=`<div><b>A</b>${q[3][0]}</div><div><b>B</b>${q[3][1]}</div>`;
+    opts=PAIR_OPTS;
+  } else {
+    $("qtext").hidden=false;$("qtext").textContent=q[2];pb.hidden=true;opts=q[3];
+  }
+  const [c1,c2]=poleColors(ax);
+  $("opts").innerHTML="";
+  opts.forEach(([t,v],i)=>{const b=document.createElement("button");b.id="op"+i;b.textContent=t;
+    b.style.background=mix(c1,c2,v/100);
+    if(ans[qi]===v)b.className="on";
+    b.onclick=()=>pick(v);$("opts").appendChild(b)});
+  const dk=document.createElement("button");dk.className="dk"+(ans[qi]===null?" on":"");dk.id="opdk";
+  dk.textContent="Não sei / não tenho opinião formada";dk.onclick=()=>pick(null);$("opts").appendChild(dk);
+  $("back").disabled=qi===0;
+}
+function pick(v){ans[qi]=v;qi++;if(qi>=Q.length)finishQuiz();else renderQ()}
+$("back").onclick=()=>{if(qi>0){qi--;renderQ()}};
+$("skip").onclick=finishQuiz;
+function score(answers){
+  const sum=new Array(12).fill(0),n=new Array(12).fill(0);
+  Q.forEach(([ax],i)=>{const a=answers[i];if(a!==null&&a!==undefined){sum[ax]+=a;n[ax]++}});
+  return {v:sum.map((s,i)=>n[i]?Math.round(s/n[i]):50),n};
+}
+function finishQuiz(){const r=score(ans);you=r.v;cnt=r.n;qi=Q.length;lastSource="quiz";sel=null;renderResult()}
+$("redo").onclick=()=>{ans.fill(undefined);qi=0;renderQ();lastSource="quiz";show("quiz")};
+
+function sim(a,b){let s=0;for(let i=0;i<12;i++){const d=a[i]-b[i];s+=d*d}return Math.max(0,Math.round(100-Math.sqrt(s/12)))}
+
+function axesHTML(v,her,counts){
+  let html="";
+  ["g","i","e","s"].forEach(c=>{
+    html+=`<div class="cat"><div class="cat-title">${CATS[c]}</div>`;
+    AXES.forEach(([name,l,r,cc],i)=>{if(cc!==c)return;
+      const [c1,c2]=poleColors(i),R=v[i],L=100-R;
+      const foot=counts?`<div class="ax-foot"><span>${counts[i]} de 4 respostas${counts[i]===0?" · sem dados, ficou no centro":""}</span>${her?`<span>${her[0]}: ${100-her[1][i]}% · ${her[1][i]}%</span>`:""}</div>`:(her?`<div class="ax-foot"><span></span><span>${her[0]}: ${100-her[1][i]}% · ${her[1][i]}%</span></div>`:"");
+      html+=`<div class="ax"><div class="ax-head"><span class="pl">${l}</span><span class="nm">${name}</span><span class="pl r">${r}</span></div>
+      <div class="bar" role="img" aria-label="${name}: ${L}% ${l}, ${R}% ${r}"><span style="width:${L}%;background:${c1}">${L>=12?L+"%":""}</span><span style="width:${R}%;background:${c2}">${R>=12?R+"%":""}</span>${her?`<i class="her" style="left:${her[1][i]}%"></i>`:""}</div>${foot}</div>`;
+    });
+    html+="</div>";
+  });
+  return html;
+}
+function renderResult(){
+  const pool=P.filter(p=>rf==="all"||p[3]===rf);
+  const ranked=pool.map(p=>({p,s:sim(you,p[4])})).sort((x,y)=>y.s-x.s);
+  if(!sel||!pool.includes(sel))sel=ranked[0].p;
+  const t=ranked[0];
+  $("topBox").innerHTML=`<div class="topcard">${avatar(t.p,112)}<div class="topinfo"><span class="tag">Mais parecida com você</span><div class="row" style="gap:12px;align-items:baseline"><span class="pct-big">${t.s}%</span><h3 class="topname">${t.p[0]}</h3></div><small class="note">${t.p[1]} · ${t.p[2]}</small><div class="row" style="gap:12px">${photoControl(t.p)}</div></div></div>
+   <p class="bio">${BIO[t.p[0]]||""}</p><div class="why">${explain(you,t.p)}</div>`;
+  bindPhotos($("topBox"),renderResult);
+  $("rank").innerHTML="";
+  (full?ranked:ranked.slice(0,10)).forEach((r,i)=>{const li=document.createElement("li");if(r.p===sel)li.className="sel";
+    li.innerHTML=`<span class="n">${i+1}</span>${avatar(r.p,36)}<span class="who"><b>${r.p[0]}</b><small>${r.p[1]} · ${r.p[2]}</small></span><span class="pct">${r.s}%</span>`;
+    li.onclick=()=>{sel=r.p;renderResult();$("resAxes").scrollIntoView({behavior:"smooth",block:"start"})};$("rank").appendChild(li)});
+  $("seeAll").textContent=full?"Mostrar só as 10 primeiras":"Ver ranking completo";
+  $("herlabel").textContent=`Posição de ${sel[0]}`;
+  $("resAxes").innerHTML=axesHTML(you,[sel[0],sel[4]],lastSource==="quiz"?cnt:null);
+  show("result");
+}
+$("seeAll").onclick=()=>{full=!full;renderResult()};
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{rf=b.dataset.r;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));sel=null;renderResult()});
+
+// manual
+AXES.forEach(([name,l,r],i)=>{
+  const d=document.createElement("div");d.className="sl";
+  d.innerHTML=`<div class="ax-head"><span class="pl">${l}</span><span class="nm">${name}</span><span class="pl r">${r}</span></div>
+  <input type="range" min="0" max="100" value="50" id="s${i}" aria-label="${name}"><span class="val" id="sv${i}"></span>`;
+  $("sliders").appendChild(d)});
+function lbl(v,i){return `${100-v}% ${AXES[i][1]} · ${v}% ${AXES[i][2]}`}
+AXES.forEach((_,i)=>{$("sv"+i).textContent=lbl(50,i);$("s"+i).oninput=e=>{$("sv"+i).textContent=lbl(+e.target.value,i)}});
+$("reset").onclick=()=>AXES.forEach((_,i)=>{$("s"+i).value=50;$("sv"+i).textContent=lbl(50,i)});
+$("compare").onclick=()=>{you=AXES.map((_,i)=>+$("s"+i).value);cnt=null;sel=null;lastSource="manual";renderResult()};
+
+// lista
+let lsel=null;
+function renderList(){
+  const q=$("q").value.trim().toLowerCase(),reg=$("region").value;
+  const items=P.filter(p=>(reg==="all"||p[3]===reg)&&(p[0]+" "+p[1]+" "+p[2]).toLowerCase().includes(q));
+  if(!lsel||!items.includes(lsel))lsel=items[0]||null;
+  $("cards").innerHTML="";
+  items.forEach(p=>{const b=document.createElement("button");b.className="card"+(p===lsel?" sel":"");
+    b.innerHTML=`${avatar(p,52)}<span class="tag">${p[1]}</span><b>${p[0]}</b><small>${p[2]}</small>${you?`<small>${sim(you,p[4])}% parecida com você</small>`:""}`;
+    b.onclick=()=>{lsel=p;renderList();$("detail").scrollIntoView({behavior:"smooth",block:"start"})};$("cards").appendChild(b)});
+  const D=$("detail");
+  if(!lsel){D.innerHTML=`<p class="note">Nenhuma política encontrada com esse filtro.</p>`;return}
+  D.innerHTML=`<div class="topcard">${avatar(lsel,96)}<div class="topinfo"><span class="tag">${lsel[1]}</span><h2>${lsel[0]}</h2><small class="note">${lsel[2]}${you?` · ${sim(you,lsel[4])}% parecida com você (a marca preta é você)`:""}</small><div class="row" style="gap:12px">${photoControl(lsel)}</div></div></div>
+   <p class="bio">${BIO[lsel[0]]||""}</p>${you?`<div class="why">${explain(you,lsel)}</div>`:""}
+   <div style="display:flex;flex-direction:column;gap:26px">${axesHTML(lsel[4],you?["Você",you]:null,null)}</div>`;
+  bindPhotos(D,renderList);
+}
+$("q").oninput=renderList;$("region").onchange=renderList;
+
+const creds=P.filter(p=>foto(p[0])&&FOTOS_SITE[p[0]].credito).map(p=>`${p[0]}: ${FOTOS_SITE[p[0]].credito}`);
+$("credlist").textContent=creds.length?"Créditos: "+creds.join("; ")+".":"";
+renderQ();
+</script>
