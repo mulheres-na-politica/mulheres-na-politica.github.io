@@ -124,7 +124,7 @@ details.method a{color:var(--accent)}
   <header>
     <span class="eyebrow">Teste político · 12 eixos · só mulheres</span>
     <h1>Com quais mulheres da política você mais se parece?</h1>
-    <p class="lead">48 perguntas sobre situações concretas, em 12 eixos. No fim, seu resultado é comparado com <b id="count"></b> mulheres da política brasileira e internacional.</p>
+    <p class="lead">Responda 48 perguntas sobre situações do dia a dia da política e veja com quais de <span id="count">78 mulheres da política, 36 delas brasileiras</span>, você mais se parece.</p>
   </header>
 
   <nav role="tablist">
@@ -402,7 +402,7 @@ function explain(v,p){
 }
 const $=id=>document.getElementById(id);
 const nBR=P.filter(p=>p[3]==="br").length;
-$("count").textContent=`${P.length} (${nBR} brasileiras)`;
+$("count").textContent=`${P.length} mulheres da política, ${nBR} delas brasileiras`;
 let ans=new Array(Q.length).fill(undefined), qi=0, you=null, cnt=null, sel=null, full=false, rf="all", lastSource="quiz";
 
 function show(v){
